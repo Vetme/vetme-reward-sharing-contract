@@ -269,7 +269,8 @@ contract VetMeStaking is Ownable{
         require(finishAt <= block.timestamp, "Staking period is not over");
         require(!rewarded[msg.sender], "Reward has been claimed");
         
-        uint reward = ((totalForStake / balanceOf[_msgSender()]) * (totalReward / 100));        
+        uint reward =  ((balanceOf[_msgSender()] / totalForStake) * 100) * totalReward / 100
+
         rewarded[msg.sender] = true;
         rewardsToken.transfer(msg.sender,reward);
         stakingToken.transfer(msg.sender, balanceOf[_msgSender()]);
